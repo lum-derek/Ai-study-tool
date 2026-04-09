@@ -1,13 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function SignupPage() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const [showPassword, setShowPassword] = useState(false)
@@ -37,29 +38,8 @@ export default function SignupPage() {
       return
     }
 
-    setSuccess(true)
-    setLoading(false)
-  }
-
-  if (success) {
-    return (
-      <div className="relative min-h-screen flex items-center justify-center bg-slate-50 overflow-hidden">
-        {/* Subtle Background Blobs */}
-        <div className="absolute top-[-10%] right-[-5%] -z-10 w-[600px] h-[600px] bg-blue-200/40 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-[20%] left-[-10%] -z-10 w-[500px] h-[500px] bg-indigo-200/40 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="w-full max-w-md bg-white/60 backdrop-blur-md rounded-3xl shadow-xl border border-gray-200/60 p-8 text-center opacity-0 animate-fade-in-up">
-          <div className="text-5xl mb-6">📬</div>
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 mb-3">Check your email</h2>
-          <p className="text-sm text-gray-500 mb-8 leading-relaxed">
-            We sent a confirmation link to <strong>{email}</strong>. Click it to activate your account.
-          </p>
-          <Link href="/login" className="text-indigo-600 hover:underline text-sm font-medium">
-            Back to login
-          </Link>
-        </div>
-      </div>
-    )
+    router.push('/dashboard')
+    router.refresh()
   }
 
   return (
