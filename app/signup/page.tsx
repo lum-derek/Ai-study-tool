@@ -41,14 +41,18 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center">
-          <div className="text-4xl mb-4">📬</div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Check your email</h2>
-          <p className="text-sm text-gray-500 mb-6">
+      <div className="relative min-h-screen flex items-center justify-center bg-slate-50 overflow-hidden">
+        {/* Subtle Background Blobs */}
+        <div className="absolute top-[-10%] right-[-5%] -z-10 w-[600px] h-[600px] bg-blue-200/40 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-[20%] left-[-10%] -z-10 w-[500px] h-[500px] bg-indigo-200/40 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="w-full max-w-md bg-white/60 backdrop-blur-md rounded-3xl shadow-xl border border-gray-200/60 p-8 text-center opacity-0 animate-fade-in-up">
+          <div className="text-5xl mb-6">📬</div>
+          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 mb-3">Check your email</h2>
+          <p className="text-sm text-gray-500 mb-8 leading-relaxed">
             We sent a confirmation link to <strong>{email}</strong>. Click it to activate your account.
           </p>
-          <Link href="/login" className="text-blue-600 hover:underline text-sm font-medium">
+          <Link href="/login" className="text-indigo-600 hover:underline text-sm font-medium">
             Back to login
           </Link>
         </div>
@@ -57,14 +61,18 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Create an account</h1>
-        <p className="text-sm text-gray-500 mb-6">Start studying smarter with AI</p>
+    <div className="relative min-h-screen flex items-center justify-center bg-slate-50 overflow-hidden">
+      {/* Subtle Background Blobs */}
+      <div className="absolute top-[-10%] right-[-5%] -z-10 w-[600px] h-[600px] bg-blue-200/40 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-[20%] left-[-10%] -z-10 w-[500px] h-[500px] bg-indigo-200/40 rounded-full blur-[100px] pointer-events-none" />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="w-full max-w-md bg-white/60 backdrop-blur-md rounded-3xl shadow-xl border border-gray-200/60 p-8 opacity-0 animate-fade-in-up">
+        <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 mb-2">Create an account</h1>
+        <p className="text-sm text-gray-500 mb-8">Start studying smarter with AI</p>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Email
             </label>
             <input
@@ -72,13 +80,13 @@ export default function SignupPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 border border-gray-300/80 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/50 backdrop-blur-sm"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Password
             </label>
             <input
@@ -86,7 +94,7 @@ export default function SignupPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 border border-gray-300/80 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/50 backdrop-blur-sm"
               placeholder="At least 6 characters"
             />
           </div>
@@ -100,15 +108,15 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium py-2 rounded-lg transition-colors"
+            className="w-full bg-blue-600 hover:bg-blue-700 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-600/20 disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-none text-white font-medium py-3 rounded-xl transition-all"
           >
             {loading ? 'Creating account...' : 'Create account'}
           </button>
         </form>
 
-        <p className="text-sm text-center text-gray-500 mt-6">
+        <p className="text-sm text-center text-gray-500 mt-8">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-600 hover:underline font-medium">
+          <Link href="/login" className="text-indigo-600 hover:underline font-medium">
             Sign in
           </Link>
         </p>
