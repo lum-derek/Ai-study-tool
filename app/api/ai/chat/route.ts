@@ -27,6 +27,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'documentId and question are required' }, { status: 400 })
   }
 
+  if (question.length > 2000) {
+    return NextResponse.json({ error: 'Question must be under 2000 characters.' }, { status: 400 })
+  }
+
+  if (history.length > 20) {
+    return NextResponse.json({ error: 'Too many messages in conversation.' }, { status: 400 })
+  }
+
   // Fetch all chunks for this document
   const { data: chunks, error: chunksError } = await supabase
     .from('document_chunks')

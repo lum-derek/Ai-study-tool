@@ -22,9 +22,12 @@ export default function ChatView({ documentId }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, loading])
 
+  const CHAR_LIMIT = 2000
+  const overLimit = input.length > CHAR_LIMIT
+
   async function handleSend() {
     const question = input.trim()
-    if (!question || loading) return
+    if (!question || loading || overLimit) return
 
     setInput('')
     setError('')
@@ -52,7 +55,7 @@ export default function ChatView({ documentId }: Props) {
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      handleSend()
+      if (!overLimit) handleSend()
     }
   }
 
@@ -114,17 +117,26 @@ export default function ChatView({ documentId }: Props) {
           onKeyDown={handleKeyDown}
           placeholder="Ask a question about your notes..."
           rows={2}
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={`flex-1 px-3 py-2 border rounded-xl text-sm resize-none focus:outline-none focus:ring-2 transition-colors ${
+            overLimit
+              ? 'border-red-400 focus:ring-red-400'
+              : 'border-gray-300 focus:ring-blue-500'
+          }`}
         />
         <button
           onClick={handleSend}
-          disabled={!input.trim() || loading}
+          disabled={!input.trim() || loading || overLimit}
           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium rounded-xl transition-colors h-fit"
         >
           Send
         </button>
       </div>
-      <p className="text-xs text-gray-400 mt-1.5">Press Enter to send · Shift+Enter for new line</p>
+      <div className="flex justify-between mt-1.5">
+        <p className="text-xs text-gray-400">Press Enter to send · Shift+Enter for new line</p>
+        <p className={`text-xs ${overLimit ? 'text-red-500 font-medium' : 'text-gray-400'}`}>
+          {input.length} / {CHAR_LIMIT}
+        </p>
+      </div>
     </div>
   )
 }
